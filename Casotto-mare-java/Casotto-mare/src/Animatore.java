@@ -7,19 +7,19 @@ public class Animatore extends Staff {
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean aggiungi_attività () {
+	public boolean aggiungi_attivita () {
 		return false;
 		
 	}
-	public boolean modifica_attività () {
+	public boolean modifica_attivita () {
 		return false;
 		
 	}
-	public boolean elimina_attività () {
+	public boolean elimina_attivita () {
 		return false;
 		
 	}
-	public void visualizza_attività () {
+	public void visualizza_attivita () {
 		
 	}
 }

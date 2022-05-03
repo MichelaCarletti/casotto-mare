@@ -24,7 +24,7 @@ public class Cliente extends Utente {
 		//TODO
 	}
 
-	public void visualizza_attività() {
+	public void visualizza_attivita() {
 		//TODO
 	}
 }
