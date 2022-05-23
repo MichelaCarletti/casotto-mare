@@ -2,7 +2,8 @@
 public class main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Utente u = new Utente(1, "Claudio","Dubino", "studente", "ciao@gmail.com", null);
+		u.registrazione();
 
 	}
 

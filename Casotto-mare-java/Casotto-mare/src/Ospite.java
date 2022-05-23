@@ -9,4 +9,10 @@ public class Ospite extends Utente {
 	private void richiedi_preventivo () {
 		//TODO
 	}
+
+	@Override
+	public boolean registrazione() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

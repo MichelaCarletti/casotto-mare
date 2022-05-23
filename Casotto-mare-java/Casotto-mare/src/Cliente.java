@@ -27,4 +27,10 @@ public class Cliente extends Utente {
 	public void visualizza_attivita() {
 		//TODO
 	}
+
+	@Override
+	public boolean registrazione() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -11,11 +11,6 @@ public class Staff extends Persona {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public boolean registrazione() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public boolean autenticazione() {
@@ -25,6 +20,12 @@ public class Staff extends Persona {
 
 	@Override
 	public boolean logout() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean registrazione() {
 		// TODO Auto-generated method stub
 		return false;
 	}
