@@ -1,5 +1,5 @@
 
-public class Cliente extends Utente {
+public class Cliente extends Persona{
 	private int ombrelloni_prenotati;
 	private int id_ordine;
 	private int attivita_prenotate;
@@ -30,6 +30,18 @@ public class Cliente extends Utente {
 
 	@Override
 	public boolean registrazione() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean autenticazione() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean logout() {
 		// TODO Auto-generated method stub
 		return false;
 	}
