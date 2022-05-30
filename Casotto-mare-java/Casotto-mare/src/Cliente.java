@@ -45,4 +45,10 @@ public class Cliente extends Persona{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void my_page() {
+		// TODO Auto-generated method stub
+		
+	}
 }

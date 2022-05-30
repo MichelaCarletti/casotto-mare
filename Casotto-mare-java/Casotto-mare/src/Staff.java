@@ -29,4 +29,10 @@ public class Staff extends Persona {
 		return false;
 	}
 
+	@Override
+	public void my_page() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
