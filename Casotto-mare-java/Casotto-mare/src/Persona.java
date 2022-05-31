@@ -1,7 +1,8 @@
+import java.sql.SQLException;
 
 public abstract class Persona {
 
-	private int id_persona;
+	protected int id_persona;
 	private String nome;
 	private String cognome;
 	private String ruolo;
@@ -18,7 +19,7 @@ public abstract class Persona {
 		this.setPassword(password);
 	}
 
-	public abstract boolean registrazione();
+	public abstract boolean registrazione() throws SQLException;
 
 	public abstract boolean autenticazione();
 
@@ -58,6 +59,9 @@ public abstract class Persona {
 		this.email = email;
 	}
 
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
 //	public String getNome() {
 //		return nome;
 //	}
