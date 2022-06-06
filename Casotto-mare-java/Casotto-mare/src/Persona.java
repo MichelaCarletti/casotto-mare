@@ -14,18 +14,34 @@ public abstract class Persona {
 		this.id_persona = id_persona;
 		this.setNome(nome);
 		this.setCognome(cognome);
-		this.ruolo = ruolo;
+		this.setRuolo(ruolo);
 		this.setEmail(email);
 		this.setPassword(password);
 	}
 
+	public int getId_persona() {
+		return id_persona;
+	}
+
+	public void setId_persona(int id_persona) {
+		this.id_persona = id_persona;
+	}
+
+	public String getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
+
 	public abstract boolean registrazione() throws SQLException;
 
-	public abstract boolean autenticazione();
+	public abstract boolean autenticazione() throws SQLException;
 
 	public abstract boolean logout();
 	
-	public abstract void my_page();
+	public abstract void my_page() throws SQLException;
 
 	public String getPassword() {
 		return password;
@@ -59,15 +75,5 @@ public abstract class Persona {
 		this.email = email;
 	}
 
-	public void setRuolo(String ruolo) {
-		this.ruolo = ruolo;
-	}
-//	public String getNome() {
-//		return nome;
-//	}
-//
-//	public void setNome(String nome) {
-//		this.nome = nome;
-//	}
 
 }
