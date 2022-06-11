@@ -5,16 +5,14 @@ public abstract class Persona {
 	protected int id_persona;
 	private String nome;
 	private String cognome;
-	private String ruolo;
 	private String email;
 	private String password;
 
-	public Persona(int id_persona, String nome, String cognome, String ruolo, String email, String password) {
+	public Persona(int id_persona, String nome, String cognome, String email, String password) {
 
 		this.id_persona = id_persona;
 		this.setNome(nome);
 		this.setCognome(cognome);
-		this.setRuolo(ruolo);
 		this.setEmail(email);
 		this.setPassword(password);
 	}
@@ -27,13 +25,7 @@ public abstract class Persona {
 		this.id_persona = id_persona;
 	}
 
-	public String getRuolo() {
-		return ruolo;
-	}
 
-	public void setRuolo(String ruolo) {
-		this.ruolo = ruolo;
-	}
 
 	public abstract boolean registrazione() throws SQLException;
 

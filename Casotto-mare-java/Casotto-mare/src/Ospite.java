@@ -9,11 +9,12 @@ public class Ospite extends Persona {
 	private double costo_ombrellone;
 	private int posizione_ombrellone;
 
-	public Ospite(int id_persona, String nome, String cognome, String ruolo, String email, String password) {
-		super(id_persona, nome, cognome, ruolo, email, password);
+	public Ospite(int id_persona, String nome, String cognome, String email, String password) {
+		super(id_persona, nome, cognome, email, password);
 
 	}
 
+	/*
 	public void connessioneDB() {
 		try {
 
@@ -27,15 +28,15 @@ public class Ospite extends Persona {
 			System.err.println(e.getMessage());
 		}
 	}
-
+*/
 	/***
 	 * Esempio Connessione ad database e Stampa una Query SELECT dal db
 	 */
 	public void selectDB() {
 		try {
 
-			String url = "jdbc:mysql://127.0.0.1:3306/casottoDB"; // jdbc:msql://127.0.0.1:3306/casotto
-			Connection conn = DriverManager.getConnection(url, "Capriotti Riccardo", "");
+			String url = "jdbc:mysql://127.0.0.1:3306/casotto"; // jdbc:msql://127.0.0.1:3306/casotto
+			Connection conn = DriverManager.getConnection(url, "root", "claMysql");
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM Ombrellone");
 			ResultSetMetaData rsmd = rs.getMetaData();
@@ -71,32 +72,174 @@ public class Ospite extends Persona {
 		conn.close();
 	}
 
-	public void addOmbrelloni() throws SQLException {
-		costo_ombrellone = 20.00;
-		int[] pos = new int[50];
-		String url = "jdbc:mysql://127.0.0.1:3306/casottoDB";
-		Connection conn = DriverManager.getConnection(url, "Capriotti Riccardo", "");
-		Statement st = conn.createStatement();
-		for (int i = 0; i < pos.length; i++) {
-			posizione_ombrellone = i;
-			pos[i] = posizione_ombrellone;
 
-			String query = "insert into Ombrellone (costo_ombrellone,posizione_ombrellone)" + "values (?, ?)";
-
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			// FUNZIONANTE
-			preparedStmt.setDouble(1, costo_ombrellone);
-			preparedStmt.setInt(2, posizione_ombrellone);
-			preparedStmt.execute();
-		}
-
-		ResultSet rs = st.executeQuery("SELECT * FROM Ombrellone");
-
-		conn.close();
-	}
 
 	public boolean prenota_ombrellone() throws SQLException {
+		Scanner in = new Scanner(System.in);
+		ArrayList<String> lista_prenotazione = new ArrayList<String>();
+		String url = "jdbc:mysql://127.0.0.1:3306/casotto";
+		Connection conn = DriverManager.getConnection(url, "root", "claMysql");
+		Statement st = conn.createStatement();
+		
+		//ResultSet rs = st.executeQuery("SELECT * FROM Ombrellone");
+		
+		// da ricontrollare
+		int p = 0;
+		System.out.println("Sono liberi gli ombrelloni con il numero: \n ");
+		
+		//Ombrelloni liberi 
+		ResultSet resultset = st.executeQuery("SELECT id_ombrellone FROM prenotazione WHERE mezza_giornata = false AND giornata_intera = false AND giorni_consecutivi = false");
+		ResultSetMetaData resultsmd = resultset.getMetaData();
+		int columnNumber = resultsmd.getColumnCount();
+		
+		
+		//System.out.println(st.getResultSet()); 
+		
+		while (resultset.next()) {
+			for (int i = 1; i <= columnNumber; i++) {
+				System.out.print(resultset.getString(i) + " "); // Stampa elementi di 1 riga
+
+			}
+			System.out.println();
+		}
+		
+		System.out.println("Seleziona il periodo di permanenza");
+		
+		System.out.println("1- MEZZA GIORNATA " + "\n" + "2- GIORNATA INTERA " + "\n"
+				+ "3- GIORNATE CONSECUTIVE  cad. \n");
+		
+		
+
+		int n = 0;
+		p = in.nextInt();
+		
+		System.out.println("Inserisci il giorno: ");
+		
+		String giorno = in.next();
+		
+		
+		switch (p) {
+		case 1:
+		
+			ResultSet rs = st.executeQuery("SELECT id_ombrellone FROM prenotazione WHERE mezza_giornata = true AND giornata_intera = false AND giorni_consecutivi = false  ");
+			
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			
+			
+			//System.out.println(st.getResultSet()); 
+			
+			while (rs.next()) {
+				for (int i = 1; i <= columnsNumber; i++) {
+					System.out.print("Ombrellone disponibile: "+rs.getString(i) + " "); // Stampa elementi di 1 riga
+
+				}
+				System.out.println();
+			}
+			
+			//scelgo l'ombrellone 
+			System.out.println("Scegli l'ombrellone");
+			
+			int num = 0;
+			num = in.nextInt();
+			
+			
+	        //id_prenotazione giorno,id_ombrellone,username_cliente, mezza_giornata, giornata_intera, giorni_consecutivi
+
+			
+
+			System.out.println("Inserisci id_ombrellone: ");
+			
+			int id_ombrellone = in.nextInt();
+
+
+			int username_cliente = this.getId_persona();  //id_persona sarebbe l'username 
+
+		
+		
+
+			
+
+			System.out.println("Inserisco la prenotazione nel db");
+
+			String query = "insert into prenotazione (giorno,id_ombrellone,username_cliente, mezza_giornata, giornata_intera, giorni_consecutivi)" + "values (?, ?, ?, ?, ?, ? )";
+
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+			
+			
+			
+			// FUNZIONANTE
+		preparedStmt.setString(1, giorno);
+		preparedStmt.setInt(2, id_ombrellone);
+		preparedStmt.setInt(3, username_cliente);
+		preparedStmt.setBoolean(4, true);
+		preparedStmt.setBoolean(5, false);
+		preparedStmt.setBoolean(6, false);
+	
+		preparedStmt.execute();
+			
+			
+			break;
+		case 2:
+			rs = st.executeQuery("SELECT id_ombrellone FROM prenotazione WHERE mezza_giornata = false AND giornata_intera = true AND giorni_consecutivi = false");
+			
+			ResultSetMetaData resmd = rs.getMetaData();
+			int numberColomn = resmd.getColumnCount();
+			
+			
+			//System.out.println(st.getResultSet()); 
+			
+			while (rs.next()) {
+				for (int i = 1; i <= numberColomn; i++) {
+					System.out.print("Il tuo ombrellone è il numero: "+rs.getString(i) + " "); // Stampa elementi di 1 riga
+
+				}
+				System.out.println();
+			}
+			
+			
+			break;
+		case 3:
+			System.out.println("Inserire il numero di giorni\n");
+			int d = in.nextInt();
+			rs = st.executeQuery("SELECT id_ombrellone FROM prenotazione WHERE mezza_giornata = false AND giornata_intera = false AND giorni_consecutivi = true");
+			
+			ResultSetMetaData resumd = rs.getMetaData();
+			int numbColomn = resumd.getColumnCount();
+			
+			
+			//System.out.println(st.getResultSet()); 
+			
+			while (rs.next()) {
+				for (int i = 1; i <= numbColomn; i++) {
+					System.out.print("Il tuo ombrellone è il numero: "+rs.getString(i) + " "); // Stampa elementi di 1 riga
+
+				}
+				System.out.println();
+			}
+			
+			
+			break;
+		}
+		
+//		ResultSet res_set = st.executeQuery("SELECT * FROM prenotazione");
+
+	//	while (rs_set.isAfterLast()) {
+	//		System.out.println(res_set);
+//			lista_prenotazione.add(rs);
+		//}
+
+		conn.close();
+		
+		/**
+		 * query per prendere le prenotazioni legate all'ombrellone e confrontarle con
+		 * le prenotazioni effettuate foreach(tutte le prenotazioni effettuate){ if(data
+		 * == data_prenotazione){ stampa } }
+		 */
 		return false;
+
+		
 	}
 
 	public void setCosto_ombrellone(double costo_ombrellone) {
@@ -114,8 +257,8 @@ public class Ospite extends Persona {
 	@Override
 	public boolean registrazione() throws SQLException {
 		// connessione db
-		String url = "jdbc:mysql://127.0.0.1:3306/casottoDB"; // jdbc:msql://127.0.0.1:3306/casotto
-		Connection conn = DriverManager.getConnection(url, "Capriotti Riccardo", "");
+		String url = "jdbc:mysql://127.0.0.1:3306/casotto"; // jdbc:msql://127.0.0.1:3306/casotto
+		Connection conn = DriverManager.getConnection(url, "root", "mySql");
 		Statement st = conn.createStatement();
 
 		Scanner in = new Scanner(System.in);
@@ -128,9 +271,6 @@ public class Ospite extends Persona {
 		// variabile di appoggio per la successiva creazione dell'oggetto Utente
 		String surname = in.next();
 
-		System.out.println("Inserisci il ruolo: ");
-		// variabile di appoggio per la successiva creazione dell'oggetto Utente
-		String role = in.next();
 
 		System.out.println("Inserisci un'email: ");
 		// variabile di appoggio per la successiva creazione dell'oggetto Utente
@@ -152,22 +292,20 @@ public class Ospite extends Persona {
 		// TODO inserire nel db
 		this.setNome(name);
 		this.setCognome(surname);
-		this.setRuolo(role);
 		this.setEmail(e_mail);
 		this.setPassword(pass2);
 
 		System.out.println("Inserisco la registrazione nel db");
 
-		String query = "insert into Persona (nome,cognome,ruolo,email,password)" + "values (?, ?, ?, ?, ?)";
+		String query = "insert into Persona (nome,cognome,email,password)" + "values (?, ?, ?, ?)";
 
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
 
 		// FUNZIONANTE
 		preparedStmt.setString(1, name);
 		preparedStmt.setString(2, surname);
-		preparedStmt.setString(3, role);
-		preparedStmt.setString(4, e_mail);
-		preparedStmt.setString(5, pass2);
+		preparedStmt.setString(3, e_mail);
+		preparedStmt.setString(4, pass2);
 
 		preparedStmt.execute();
 
