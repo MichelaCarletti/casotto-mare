@@ -13,7 +13,6 @@ public class Proprietario extends Staff {
 	public Proprietario(int id_persona, String nome, String cognome, String email, String password,
 			int stipendio, String orario) {
 		super(id_persona, nome, cognome, email, password, stipendio, orario);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean rifornisci_inventario() {

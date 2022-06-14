@@ -10,7 +10,6 @@ public class Cameriere extends Staff {
 	
 	public boolean notifica_prodotti_mancanti() {
 		return false;
-		//TODO
 	}
 
 }

@@ -14,21 +14,7 @@ public class Ospite extends Persona {
 
 	}
 
-	/*
-	public void connessioneDB() {
-		try {
 
-			String url = "jdbc:mysql://127.0.0.1:3306/casottoDB"; // jdbc:msql://127.0.0.1:3306/casotto
-			Connection conn = DriverManager.getConnection(url, "Capriotti Riccardo", "");
-			Statement st = conn.createStatement();
-
-			conn.close();
-		} catch (Exception e) {
-			System.err.println("Got an exception! ");
-			System.err.println(e.getMessage());
-		}
-	}
-*/
 	/***
 	 * Esempio Connessione ad database e Stampa una Query SELECT dal db
 	 */
